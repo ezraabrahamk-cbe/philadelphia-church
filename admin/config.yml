@@ -1,0 +1,90 @@
+backend:
+  name: github
+  repo: ezraabrahamk-cbe/philadelphia-church
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "sermons"
+    label: "Sermons / போதனைகள்"
+    folder: "_data/sermons"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title (English)", name: "titleEn", widget: "string" }
+      - { label: "Title (Tamil) தலைப்பு", name: "titleTa", widget: "string" }
+      - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Scripture Verse (English)", name: "verseEn", widget: "string", hint: "e.g. John 3:16" }
+      - { label: "Scripture Verse (Tamil)", name: "verseTa", widget: "string", hint: "e.g. யோவான் 3:16" }
+      - { label: "Notes (English)", name: "notesEn", widget: "text" }
+      - { label: "Notes (Tamil)", name: "notesTa", widget: "text" }
+      - { label: "YouTube Video ID", name: "youtubeId", widget: "string", required: false, hint: "From YouTube URL after v= e.g. dQw4w9WgXcQ" }
+      - { label: "Pastor Name", name: "pastor", widget: "string", default: "Pr. K. Ezra Abraham" }
+
+  - name: "events"
+    label: "Events / நிகழ்வுகள்"
+    folder: "_data/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title (English)", name: "titleEn", widget: "string" }
+      - { label: "Title (Tamil) தலைப்பு", name: "titleTa", widget: "string" }
+      - { label: "Event Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Category", name: "category", widget: "select", options: ["Youth", "Family", "Outreach", "Annual", "Prayer", "Worship", "Community"] }
+      - { label: "Description (English)", name: "descEn", widget: "text" }
+      - { label: "Description (Tamil)", name: "descTa", widget: "text" }
+      - { label: "Location (English)", name: "locationEn", widget: "string", default: "Philadelphia Church, Singanallur" }
+      - { label: "Location (Tamil)", name: "locationTa", widget: "string", default: "பிலடெல்பியா சபை, சிங்காநல்லூர்" }
+
+  - name: "gallery"
+    label: "Photo Gallery / புகைப்படங்கள்"
+    folder: "_data/gallery"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Photo Title (English)", name: "titleEn", widget: "string" }
+      - { label: "Photo Title (Tamil)", name: "titleTa", widget: "string" }
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Category", name: "category", widget: "select", options: ["Worship", "Events", "Youth", "Community", "Outreach"] }
+
+  - name: "settings"
+    label: "Church Settings / சபை அமைப்புகள்"
+    files:
+      - label: "General Settings"
+        name: "general"
+        file: "_data/settings.json"
+        fields:
+          - { label: "Church Name (English)", name: "churchNameEn", widget: "string" }
+          - { label: "Church Name (Tamil)", name: "churchNameTa", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Address", name: "address", widget: "string" }
+          - { label: "WhatsApp Number", name: "whatsapp", widget: "string" }
+          - { label: "YouTube Channel URL", name: "youtube", widget: "string" }
+          - { label: "UPI ID", name: "upiId", widget: "string" }
+          - label: "Service Times"
+            name: "serviceTimes"
+            widget: "list"
+            fields:
+              - { label: "Day (English)", name: "dayEn", widget: "string" }
+              - { label: "Day (Tamil)", name: "dayTa", widget: "string" }
+              - { label: "Time", name: "time", widget: "string" }
+              - { label: "Service Name (English)", name: "nameEn", widget: "string" }
+              - { label: "Service Name (Tamil)", name: "nameTa", widget: "string" }
+
+  - name: "pastor"
+    label: "Pastor Info / போதகர் தகவல்"
+    files:
+      - label: "Pastor Details"
+        name: "pastor"
+        file: "_data/pastor.json"
+        fields:
+          - { label: "Pastor Name", name: "name", widget: "string" }
+          - { label: "Title (English)", name: "titleEn", widget: "string" }
+          - { label: "Title (Tamil)", name: "titleTa", widget: "string" }
+          - { label: "Bio (English)", name: "bioEn", widget: "text" }
+          - { label: "Bio (Tamil)", name: "bioTa", widget: "text" }
+          - { label: "Pastor Photo", name: "photo", widget: "image" }

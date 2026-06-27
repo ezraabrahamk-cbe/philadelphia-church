@@ -1,0 +1,33 @@
+{
+  "churchNameEn": "Philadelphia Church",
+  "churchNameTa": "பிலடெல்பியா சபை",
+  "phone": "080567 00100",
+  "email": "info@philadelphiachurch.org",
+  "address": "X2XG+FG3, Vasanth Nagar, Singanallur, Coimbatore, Tamil Nadu 641005",
+  "whatsapp": "918056700100",
+  "youtube": "https://www.youtube.com/@philadelphiachurchsinganal1072",
+  "upiId": "kezraabraham@okaxis",
+  "serviceTimes": [
+    {
+      "dayEn": "Sunday",
+      "dayTa": "ஞாயிறு",
+      "time": "9:00 AM & 11:00 AM",
+      "nameEn": "Morning Worship",
+      "nameTa": "காலை ஆராதனை"
+    },
+    {
+      "dayEn": "Wednesday",
+      "dayTa": "புதன்",
+      "time": "6:30 PM",
+      "nameEn": "Bible Study",
+      "nameTa": "வேத பாடம்"
+    },
+    {
+      "dayEn": "Friday",
+      "dayTa": "வெள்ளி",
+      "time": "5:00 PM",
+      "nameEn": "Youth Service",
+      "nameTa": "இளைஞர் ஆராதனை"
+    }
+  ]
+}
