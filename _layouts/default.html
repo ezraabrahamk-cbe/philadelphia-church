@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ site.data.settings.churchNameEn }} | {{ site.data.settings.churchNameTa }}</title>
+  <meta name="description" content="{{ site.description }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,500;1,400&family=Noto+Serif+Tamil:wght@400;500;600&family=Noto+Sans+Tamil:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bd:#042C53;--bm:#185FA5;--bl:#E6F1FB;--bp:#B5D4F4;--text:#1a1a1a;--muted:#6b7280;--border:rgba(0,0,0,0.1);--surf:#f9f9f8;--white:#fff;--rm:8px;--rl:12px}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter','Noto Sans Tamil',sans-serif;color:var(--text);background:var(--white);font-size:16px;line-height:1.7}
+    body.lang-ta{font-family:'Noto Sans Tamil','Inter',sans-serif}
+    .en{display:inline}.ta{display:none}
+    .en-b{display:block}.ta-b{display:none}
+    body.lang-ta .en{display:none}body.lang-ta .ta{display:inline}
+    body.lang-ta .en-b{display:none}body.lang-ta .ta-b{display:block}
+
+    /* LANG BAR */
+    .lang-bar{background:var(--bd);display:flex;justify-content:flex-end;padding:.4rem 2rem;gap:8px}
+    .lb{background:transparent;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.7);font-size:12px;font-weight:500;padding:3px 12px;border-radius:20px;cursor:pointer;font-family:inherit;transition:all .2s}
+    .lb.active{background:white;color:var(--bd);border-color:white}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:var(--white);border-bottom:.5px solid var(--border);gap:1rem}
+    .logo{font-size:16px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;cursor:pointer;flex-shrink:0}
+    .logo .cross{color:var(--bm);font-size:20px}
+    .nav-links{display:flex;gap:1.25rem;list-style:none}
+    .nav-links a{font-size:13px;color:var(--muted);text-decoration:none;cursor:pointer;font-weight:500;transition:color .2s;white-space:nowrap}
+    .nav-links a:hover,.nav-links a.active{color:var(--bm)}
+    .nav-cta{background:var(--bm);color:white;padding:8px 18px;border-radius:var(--rm);font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:inherit;flex-shrink:0;white-space:nowrap}
+    .hamburger{display:none;background:none;border:none;cursor:pointer;font-size:22px;color:var(--text)}
+    .mob-menu{display:none;flex-direction:column;background:var(--white);border-bottom:.5px solid var(--border)}
+    .mob-menu a{padding:.85rem 2rem;font-size:15px;color:var(--text);text-decoration:none;border-bottom:.5px solid var(--border);cursor:pointer;display:block}
+    .mob-menu.open{display:flex}
+
+    /* PAGES */
+    .page{display:none}.page.active{display:block}
+
+    /* HERO */
+    .hero{position:relative;color:white;padding:7rem 2rem 6rem;text-align:center;overflow:hidden;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .hero-bg{position:absolute;inset:0;z-index:0}
+    .hero-bg img{width:100%;height:100%;object-fit:cover;display:block}
+    .hero-bg video{width:100%;height:100%;object-fit:cover;display:block}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(4,44,83,.82) 0%,rgba(24,95,165,.65) 100%);z-index:1}
+    .hero-content{position:relative;z-index:2;max-width:700px;margin:0 auto}
+    .hero-tag{display:inline-block;background:rgba(255,255,255,.15);color:var(--bp);font-size:12px;font-weight:500;padding:5px 16px;border-radius:20px;margin-bottom:1.5rem;backdrop-filter:blur(4px)}
+    .hero h1{font-family:'Lora',serif;font-size:clamp(28px,5vw,52px);font-weight:500;line-height:1.2;margin-bottom:1.25rem;text-shadow:0 2px 8px rgba(0,0,0,.3)}
+    body.lang-ta .hero h1{font-family:'Noto Serif Tamil',serif}
+    .hero p{font-size:17px;color:rgba(255,255,255,.9);max-width:520px;margin:0 auto 2.5rem;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+    .hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .btn-w{background:white;color:var(--bd);padding:12px 28px;border-radius:var(--rm);font-size:14px;font-weight:600;border:none;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+    .btn-g{background:transparent;color:white;padding:12px 28px;border-radius:var(--rm);font-size:14px;font-weight:500;border:1.5px solid rgba(255,255,255,.6);cursor:pointer;font-family:inherit;backdrop-filter:blur(4px)}
+
+    /* TIMES BAR */
+    .times-bar{background:var(--surf);border-bottom:.5px solid var(--border);padding:1rem 2rem;display:flex;gap:2rem;justify-content:center;flex-wrap:wrap}
+    .t-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+    .t-item strong{color:var(--text)}
+    .t-dot{width:7px;height:7px;border-radius:50%;background:var(--bm);flex-shrink:0}
+
+    /* SOCIAL BAR */
+    .social-bar{background:var(--surf);border-bottom:.5px solid var(--border);padding:.8rem 2rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+    .social-bar span{font-size:13px;color:var(--muted)}
+    .sl{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;text-decoration:none;transition:opacity .2s}
+    .sl:hover{opacity:.85}
+    .sl.yt{background:#FF0000;color:white}
+    .sl.wa{background:#25D366;color:white}
+
+    /* HOME CARDS */
+    .home-cards{padding:4rem 2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;max-width:960px;margin:0 auto}
+    .hcard{background:var(--white);border:.5px solid var(--border);border-radius:var(--rl);padding:1.5rem 1.25rem;text-align:center;transition:box-shadow .2s}
+    .hcard:hover{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+    .hcard-icon{width:52px;height:52px;border-radius:14px;background:var(--bl);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-size:24px}
+    .hcard h3{font-size:15px;font-weight:600;margin-bottom:6px}
+    .hcard p{font-size:13px;color:var(--muted);line-height:1.6}
+
+    /* VERSE */
+    .verse-block{background:var(--bl);padding:4rem 2rem;text-align:center;border-top:.5px solid var(--border)}
+    .verse-block blockquote{font-family:'Lora',serif;font-style:italic;font-size:clamp(17px,3vw,23px);color:var(--bd);max-width:660px;margin:0 auto .75rem;line-height:1.6}
+    body.lang-ta .verse-block blockquote{font-family:'Noto Serif Tamil',serif;font-style:normal}
+    .verse-ref{font-size:13px;color:var(--bm);font-weight:500}
+
+    /* INNER */
+    .inner{padding:4rem 2rem;max-width:900px;margin:0 auto}
+    .inner h2{font-family:'Lora',serif;font-size:28px;font-weight:500;margin-bottom:.4rem}
+    body.lang-ta .inner h2{font-family:'Noto Serif Tamil',serif}
+    .sub{font-size:14px;color:var(--muted);margin-bottom:2rem}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:1.5rem}
+    .acard{background:var(--white);border:.5px solid var(--border);border-radius:var(--rl);padding:1.25rem}
+    .acard h4{font-size:12px;font-weight:600;color:var(--bm);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+    body.lang-ta .acard h4{text-transform:none;letter-spacing:0;font-size:13px}
+    .acard p{font-size:13px;color:var(--muted);line-height:1.7}
+    .pastor-card{display:flex;align-items:center;gap:1.5rem;background:var(--surf);border-radius:var(--rl);padding:1.5rem;border:.5px solid var(--border)}
+    .pastor-av{width:80px;height:80px;border-radius:50%;overflow:hidden;flex-shrink:0;border:3px solid var(--bl)}
+    .pastor-av img{width:100%;height:100%;object-fit:cover}
+    .pastor-info h4{font-size:16px;font-weight:600}
+    .ptitle{font-size:13px;color:var(--bm);font-weight:500;margin-bottom:6px;margin-top:2px}
+    .pastor-info p{font-size:13px;color:var(--muted);line-height:1.7}
+
+    /* SERVICES */
+    .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:1.5rem}
+    .scard{background:var(--white);border:.5px solid var(--border);border-radius:var(--rl);padding:1.5rem}
+    .sbadge{display:inline-block;background:var(--bl);color:var(--bm);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:12px;text-transform:uppercase}
+    .scard h3{font-size:15px;font-weight:600;margin-bottom:6px}
+    .scard p{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px}
+    .stime{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--bm);font-weight:500}
+
+    /* SERMONS */
+    .sermon-controls{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px}
+    .sermon-search{font-size:13px;padding:8px 14px;border:.5px solid var(--border);border-radius:var(--rm);background:var(--white);color:var(--text);font-family:inherit;width:260px}
+    .sermon-search:focus{outline:none;border-color:var(--bm)}
+    .sermons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .sermon-card{background:var(--white);border:.5px solid var(--border);border-radius:var(--rl);overflow:hidden;display:flex;flex-direction:column}
+    .sthumb{width:100%;aspect-ratio:16/9;background:var(--bd);position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden}
+    .sthumb img{width:100%;height:100%;object-fit:cover}
+    .play-btn{position:absolute;width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--bm);box-shadow:0 4px 16px rgba(0,0,0,.3);transition:transform .2s}
+    .sthumb:hover .play-btn{transform:scale(1.1)}
+    .sbody{padding:1rem;flex:1;display:flex;flex-direction:column}
+    .sdate{font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:500;text-transform:uppercase}
+    .stitle{font-size:15px;font-weight:600;margin-bottom:6px;line-height:1.4}
+    .sverse{display:inline-flex;align-items:center;gap:5px;background:var(--bl);color:var(--bm);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:10px;width:fit-content}
+    .snotes{font-size:13px;color:var(--muted);line-height:1.6;flex:1;margin-bottom:12px}
+    .sfooter{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:.5px solid var(--border)}
+    .spastor{font-size:12px;color:var(--muted)}
+    .watch-btn{display:inline-flex;align-items:center;gap:5px;background:#FF0000;color:white;font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;border:none;cursor:pointer;font-family:inherit}
+    .no-yt{display:inline-flex;align-items:center;gap:5px;background:var(--surf);color:var(--muted);font-size:12px;padding:5px 12px;border-radius:6px}
+
+    /* YT MODAL */
+    .yt-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:999;align-items:center;justify-content:center;padding:1rem}
+    .yt-modal.open{display:flex}
+    .yt-inner{background:#000;border-radius:var(--rl);width:100%;max-width:860px;position:relative}
+    .yt-inner iframe{width:100%;aspect-ratio:16/9;border-radius:var(--rl);border:none;display:block}
+    .yt-close{position:absolute;top:-44px;right:0;background:none;border:none;color:white;font-size:30px;cursor:pointer;line-height:1}
+
+    /* EVENTS */
+    .events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:1.5rem}
+    .ecard{background:var(--white);border:.5px solid var(--border);border-radius:var(--rl);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s}
+    .ecard:hover{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+    .edate-bar{background:var(--bm);color:white;padding:.75rem 1rem;display:flex;align-items:center;gap:12px}
+    .eday{font-size:32px;font-weight:700;line-height:1}
+    .emonth{font-size:13px;opacity:.85;line-height:1.4}
+    .ebody{padding:1rem;flex:1;display:flex;flex-direction:column}
+    .etag{display:inline-block;background:var(--bl);color:var(--bm);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:8px}
+    .etitle{font-size:15px;font-weight:600;margin-bottom:6px;line-height:1.4}
+    .edesc{font-size:13px;color:var(--muted);line-height:1.6;flex:1}
+    .efooter{margin-top:12px;padding-top:10px;border-top:.5px solid var(--border);font-size:12px;color:var(--muted)}
+    .live-banner{background:linear-gradient(135deg,#042C53,#185FA5);border-radius:var(--rl);padding:2rem;text-align:center;color:white;margin-bottom:2rem}
+    .live-badge{display:inline-flex;align-items:center;gap:6px;background:#FF0000;color:white;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:1rem}
+    .live-dot{width:8px;height:8px;border-radius:50%;background:white;animation:pulse 1.5s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    .live-banner h3{font-size:20px;font-weight:500;margin-bottom:.5rem}
+    .live-banner p{font-size:14px;opacity:.8;margin-bottom:1.5rem}
+    .yt-btn{display:inline-flex;align-items:center;gap:8px;background:#FF0000;color:white;padding:10px 22px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none}
+
+    /* GIVE */
+    .give-box{background:var(--bd);border-radius:var(--rl);padding:2.5rem 2rem;text-align:center;color:white;margin-top:1rem}
+    .give-box h3{font-size:22px;font-weight:500;margin-bottom:.5rem}
+    body.lang-ta .give-box h3{font-family:'Noto Serif Tamil',serif}
+    .give-box > p{font-size:14px;color:var(--bp);margin-bottom:1.5rem;max-width:500px;margin-left:auto;margin-right:auto}
+    .upi-box{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:var(--rm);padding:1rem 1.5rem;display:inline-flex;align-items:center;gap:12px;margin-bottom:1rem;cursor:pointer;transition:background .2s}
+    .upi-box:hover{background:rgba(255,255,255,.18)}
+    .upi-id{font-size:16px;font-weight:600;color:white}
+    .upi-label{font-size:11px;color:var(--bp)}
+    .copied-msg{font-size:12px;color:#90EE90;margin:.5rem 0;display:none}
+    .give-methods{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:.5rem}
+    .gtag{background:rgba(255,255,255,.1);color:var(--bp);font-size:12px;padding:4px 12px;border-radius:20px}
+    .give-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:2rem}
+
+    /* CONTACT */
+    .contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem}
+    .cinfo{display:flex;flex-direction:column;gap:12px}
+    .ci-item{display:flex;align-items:flex-start;gap:12px;padding:1rem;border-radius:var(--rm);border:.5px solid var(--border);background:var(--white)}
+    .ci-icon{width:38px;height:38px;border-radius:9px;background:var(--bl);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+    .ci-text h5{font-size:13px;font-weight:600;margin-bottom:2px}
+    .ci-text p{font-size:12px;color:var(--muted);line-height:1.6}
+    .cform{display:flex;flex-direction:column;gap:10px}
+    .flabel{font-size:12px;font-weight:500;color:var(--muted);margin-bottom:4px;display:block}
+    .cform input,.cform select,.cform textarea{width:100%;font-size:13px;padding:9px 12px;border:.5px solid var(--border);border-radius:var(--rm);background:var(--white);color:var(--text);font-family:inherit;transition:border-color .2s}
+    .cform input:focus,.cform select:focus,.cform textarea:focus{outline:none;border-color:var(--bm)}
+    .cform textarea{height:110px;resize:vertical}
+    .send-btn{background:var(--bm);color:white;padding:11px;border-radius:var(--rm);border:none;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s}
+    .send-btn:hover{background:var(--bd)}
+    .form-ok{display:none;background:#EAF3DE;color:#3B6D11;padding:12px;border-radius:var(--rm);font-size:13px;text-align:center}
+
+    /* GALLERY */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:1.5rem}
+    .gcard{border-radius:var(--rl);overflow:hidden;aspect-ratio:4/3;position:relative;cursor:pointer}
+    .gcard img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+    .gcard:hover img{transform:scale(1.05)}
+    .gcap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.7));color:white;padding:.75rem 1rem;font-size:12px;font-weight:500;opacity:0;transition:opacity .2s}
+    .gcard:hover .gcap{opacity:1}
+
+    /* FOOTER */
+    footer{background:var(--bd);color:var(--bp);padding:3rem 2rem}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+    .fcol h5{color:white;font-size:13px;font-weight:600;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em}
+    .fcol a{display:block;color:var(--bp);font-size:13px;text-decoration:none;margin-bottom:6px;cursor:pointer;transition:color .2s}
+    .fcol a:hover{color:white}
+    .fcol p{font-size:13px;line-height:1.7}
+    .footer-logo{font-family:'Lora',serif;font-size:20px;color:white;margin-bottom:.5rem}
+    body.lang-ta .footer-logo{font-family:'Noto Serif Tamil',serif}
+    .fsocial{display:flex;gap:10px;margin-top:1rem}
+    .fsocial a{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,.1);color:white;display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:background .2s}
+    .fsocial a:hover{background:rgba(255,255,255,.25)}
+    .footer-bottom{border-top:.5px solid rgba(255,255,255,.15);padding-top:1.5rem;font-size:12px;color:rgba(181,212,244,.6);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+    /* WHATSAPP FLOAT */
+    .wa-float{position:fixed;bottom:24px;right:24px;z-index:500;width:56px;height:56px;border-radius:50%;background:#25D366;color:white;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 20px rgba(37,211,102,.5);text-decoration:none;transition:transform .2s}
+    .wa-float:hover{transform:scale(1.1)}
+
+    @media(max-width:768px){
+      nav{padding:1rem}
+      .nav-links,.nav-cta{display:none}
+      .hamburger{display:block}
+      .about-grid,.contact-layout,.footer-grid{grid-template-columns:1fr}
+      .inner{padding:2.5rem 1.5rem}
+      .hero{padding:4rem 1.5rem}
+      .pastor-card{flex-direction:column;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lb active" id="btn-en" onclick="setLang('en')">English</button>
+  <button class="lb" id="btn-ta" onclick="setLang('ta')">தமிழ்</button>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="nav('home')">
+    <span class="cross">✝</span>
+    <span class="en">{{ site.data.settings.churchNameEn }}</span>
+    <span class="ta">{{ site.data.settings.churchNameTa }}</span>
+  </div>
+  <ul class="nav-links">
+    <li><a id="n-home" onclick="nav('home')"><span class="en">Home</span><span class="ta">முகப்பு</span></a></li>
+    <li><a id="n-about" onclick="nav('about')"><span class="en">About</span><span class="ta">எங்களை பற்றி</span></a></li>
+    <li><a id="n-services" onclick="nav('services')"><span class="en">Services</span><span class="ta">ஆராதனை</span></a></li>
+    <li><a id="n-sermons" onclick="nav('sermons')"><span class="en">Sermons</span><span class="ta">போதனைகள்</span></a></li>
+    <li><a id="n-events" onclick="nav('events')"><span class="en">Events</span><span class="ta">நிகழ்வுகள்</span></a></li>
+    <li><a id="n-gallery" onclick="nav('gallery')"><span class="en">Gallery</span><span class="ta">படங்கள்</span></a></li>
+    <li><a id="n-give" onclick="nav('give')"><span class="en">Give</span><span class="ta">கொடு</span></a></li>
+    <li><a id="n-contact" onclick="nav('contact')"><span class="en">Contact</span><span class="ta">தொடர்பு</span></a></li>
+  </ul>
+  <button class="nav-cta" onclick="nav('contact')"><span class="en">Visit Us</span><span class="ta">வாருங்கள்</span></button>
+  <button class="hamburger" onclick="toggleMob()">☰</button>
+</nav>
+<div class="mob-menu" id="mobMenu">
+  <a onclick="nav('home');toggleMob()"><span class="en">Home</span><span class="ta">முகப்பு</span></a>
+  <a onclick="nav('about');toggleMob()"><span class="en">About</span><span class="ta">எங்களை பற்றி</span></a>
+  <a onclick="nav('services');toggleMob()"><span class="en">Services</span><span class="ta">ஆராதனை</span></a>
+  <a onclick="nav('sermons');toggleMob()"><span class="en">Sermons</span><span class="ta">போதனைகள்</span></a>
+  <a onclick="nav('events');toggleMob()"><span class="en">Events</span><span class="ta">நிகழ்வுகள்</span></a>
+  <a onclick="nav('gallery');toggleMob()"><span class="en">Gallery</span><span class="ta">படங்கள்</span></a>
+  <a onclick="nav('give');toggleMob()"><span class="en">Give</span><span class="ta">கொடு</span></a>
+  <a onclick="nav('contact');toggleMob()"><span class="en">Contact</span><span class="ta">தொடர்பு</span></a>
+</div>
+
+<!-- ══ HOME ══ -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-bg">
+      {% if site.data.homepage.heroBgVideo and site.data.homepage.heroBgVideo != '' %}
+        <video autoplay muted loop playsinline poster="{{ site.data.homepage.heroBgImage }}">
+          <source src="{{ site.data.homepage.heroBgVideo }}" type="video/mp4" />
+          <img src="{{ site.data.homepage.heroBgImage }}" alt="Hero background" />
+        </video>
+      {% else %}
+        <img src="{{ site.data.homepage.heroBgImage }}" alt="Philadelphia Church worship" />
+      {% endif %}
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="en">Welcome to {{ site.data.settings.churchNameEn }}</span>
+        <span class="ta">{{ site.data.settings.churchNameTa }}க்கு வரவேற்கிறோம்</span>
+      </div>
+      <h1>
+        <span class="en-b">{{ site.data.homepage.heroTitleEn | newline_to_br }}</span>
+        <span class="ta-b">{{ site.data.homepage.heroTitleTa | newline_to_br }}</span>
+      </h1>
+      <p>
+        <span class="en">{{ site.data.homepage.heroSubtitleEn }}</span>
+        <span class="ta">{{ site.data.homepage.heroSubtitleTa }}</span>
+      </p>
+      <div class="hero-btns">
+        <button class="btn-w" onclick="nav('services')"><span class="en">Our Services</span><span class="ta">ஆராதனை நேரங்கள்</span></button>
+        <button class="btn-g" onclick="nav('contact')"><span class="en">Plan a Visit</span><span class="ta">வருகை திட்டமிடுங்கள்</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="times-bar">
+    {% for st in site.data.settings.serviceTimes %}
+    <div class="t-item">
+      <div class="t-dot"></div>
+      <strong><span class="en">{{ st.nameEn }}</span><span class="ta">{{ st.nameTa }}</span></strong>&nbsp;—
+      <span class="en">{{ st.dayEn }}</span><span class="ta">{{ st.dayTa }}</span> {{ st.time }}
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="social-bar">
+    <span class="en">Follow &amp; Connect:</span><span class="ta">எங்களை பின்தொடருங்கள்:</span>
+    <a class="sl yt" href="{{ site.data.settings.youtube }}" target="_blank">▶ YouTube</a>
+    <a class="sl wa" href="https://wa.me/{{ site.data.settings.whatsapp }}" target="_blank">💬 WhatsApp</a>
+  </div>
+
+  <div class="home-cards">
+    {% for card in site.data.homepage.cards %}
+    <div class="hcard">
+      <div class="hcard-icon">{{ card.icon }}</div>
+      <h3><span class="en">{{ card.titleEn }}</span><span class="ta">{{ card.titleTa }}</span></h3>
+      <p><span class="en">{{ card.descEn }}</span><span class="ta">{{ card.descTa }}</span></p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="verse-block">
+    <blockquote>
+      <span class="en">"{{ site.data.homepage.verseEn }}"</span>
+      <span class="ta">"{{ site.data.homepage.verseTa }}"</span>
+    </blockquote>
+    <div class="verse-ref">— {{ site.data.homepage.verseRef }}</div>
+  </div>
+</div>
+
+<!-- ══ ABOUT ══ -->
+<div id="page-about" class="page">
+  <div class="inner">
+    <h2><span class="en">About Us</span><span class="ta">எங்களை பற்றி</span></h2>
+    <p class="sub"><span class="en">Learn who we are, what we believe, and what drives our mission.</span><span class="ta">நாம் யார், நாம் என்ன நம்புகிறோம் என்பதை அறிந்துகொள்ளுங்கள்.</span></p>
+    <div class="about-grid">
+      <div class="acard"><h4><span class="en">Our Vision</span><span class="ta">நமது தரிசனம்</span></h4><p><span class="en">{{ site.data.aboutpage.visionEn }}</span><span class="ta">{{ site.data.aboutpage.visionTa }}</span></p></div>
+      <div class="acard"><h4><span class="en">Our Mission</span><span class="ta">நமது பணி</span></h4><p><span class="en">{{ site.data.aboutpage.missionEn }}</span><span class="ta">{{ site.data.aboutpage.missionTa }}</span></p></div>
+      <div class="acard"><h4><span class="en">What We Believe</span><span class="ta">நமது நம்பிக்கை</span></h4><p><span class="en">{{ site.data.aboutpage.beliefsEn }}</span><span class="ta">{{ site.data.aboutpage.beliefsTa }}</span></p></div>
+      <div class="acard"><h4><span class="en">Our History</span><span class="ta">நமது வரலாறு</span></h4><p><span class="en">{{ site.data.aboutpage.historyEn }}</span><span class="ta">{{ site.data.aboutpage.historyTa }}</span></p></div>
+    </div>
+    <div class="pastor-card">
+      <div class="pastor-av">
+        <img src="{{ site.data.pastor.photo }}" alt="{{ site.data.pastor.name }}"
+          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22><rect width=%2280%22 height=%2280%22 fill=%22%23185FA5%22/><text x=%2240%22 y=%2250%22 font-size=%2230%22 text-anchor=%22middle%22 fill=%22white%22>✝</text></svg>'" />
+      </div>
+      <div class="pastor-info">
+        <h4>{{ site.data.pastor.name }}</h4>
+        <div class="ptitle"><span class="en">{{ site.data.pastor.titleEn }}</span><span class="ta">{{ site.data.pastor.titleTa }}</span></div>
+        <p><span class="en">{{ site.data.pastor.bioEn }}</span><span class="ta">{{ site.data.pastor.bioTa }}</span></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SERVICES ══ -->
+<div id="page-services" class="page">
+  <div class="inner">
+    <h2><span class="en">Our Services</span><span class="ta">ஆராதனை நேரங்கள்</span></h2>
+    <p class="sub"><span class="en">Multiple gatherings every week — find one that fits your schedule.</span><span class="ta">வாரந்தோறும் பல கூட்டங்கள் — உங்கள் நேரத்திற்கு ஏற்றதை தேர்வு செய்யுங்கள்.</span></p>
+    <div class="services-grid">
+      <div class="scard"><div class="sbadge"><span class="en">Weekly</span><span class="ta">வாராந்திர</span></div><h3><span class="en">Sunday Morning Worship</span><span class="ta">ஞாயிறு காலை ஆராதனை</span></h3><p><span class="en">Our main celebration service with praise, worship, and a message from God's Word.</span><span class="ta">துதி, ஆராதனை மற்றும் வேத செய்தியுடன் கூடிய முதன்மை ஆராதனை.</span></p><div class="stime">🕘 9:00 AM &amp; 11:00 AM</div></div>
+      <div class="scard"><div class="sbadge"><span class="en">Weekly</span><span class="ta">வாராந்திர</span></div><h3><span class="en">Wednesday Bible Study</span><span class="ta">புதன் வேத பாடம்</span></h3><p><span class="en">Deeper dive into scripture in a relaxed and interactive setting. All welcome.</span><span class="ta">வேதாகமத்தை ஆழமாக ஆய்வு செய்யும் இடைவினை கூட்டம்.</span></p><div class="stime">🕡 Wednesday 6:30 PM</div></div>
+      <div class="scard"><div class="sbadge"><span class="en">Weekly</span><span class="ta">வாராந்திர</span></div><h3><span class="en">Youth Service</span><span class="ta">இளைஞர் ஆராதனை</span></h3><p><span class="en">A vibrant gathering for teens and young adults — worship, word, and fellowship.</span><span class="ta">இளைஞர்களுக்கான உற்சாக கூட்டம் — ஆராதனை, வசனம், கூட்டுறவு.</span></p><div class="stime">🕔 Friday 5:00 PM</div></div>
+      <div class="scard"><div class="sbadge"><span class="en">Monthly</span><span class="ta">மாதாந்திர</span></div><h3><span class="en">Prayer &amp; Fasting</span><span class="ta">ஜெபமும் உபவாசமும்</span></h3><p><span class="en">A dedicated monthly gathering for corporate prayer and spiritual renewal.</span><span class="ta">கூட்டு ஜெபம் மற்றும் ஆவிக்குரிய புத்துணர்வுக்காக மாதாந்திர கூட்டம்.</span></p><div class="stime">🙏 First Friday</div></div>
+      <div class="scard"><div class="sbadge"><span class="en">Sunday</span><span class="ta">ஞாயிறு</span></div><h3><span class="en">Children's Church</span><span class="ta">குழந்தைகள் சபை</span></h3><p><span class="en">Age-appropriate worship and teaching for children during the main service.</span><span class="ta">முதன்மை ஆராதனையின்போது குழந்தைகளுக்கான தனி வேத பாடம்.</span></p><div class="stime">👶 During both services</div></div>
+      <div class="scard"><div class="sbadge"><span class="en">Ongoing</span><span class="ta">தொடர்ச்சியான</span></div><h3><span class="en">Small Groups</span><span class="ta">சிறு குழுக்கள்</span></h3><p><span class="en">Home-based groups that meet throughout the week for community and discipleship.</span><span class="ta">சமுதாயம் மற்றும் சீஷத்துவத்திற்காக வாரம் முழுவதும் வீடுகளில் சந்திக்கும் குழுக்கள்.</span></p><div class="stime">🏠 Various times</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SERMONS ══ -->
+<div id="page-sermons" class="page">
+  <div class="inner">
+    <h2><span class="en">Sermons</span><span class="ta">போதனைகள்</span></h2>
+    <p class="sub"><span class="en">Weekly messages from God's Word — watch, read, and be blessed.</span><span class="ta">தேவனுடைய வார்த்தையிலிருந்து வாராந்திர செய்திகள்.</span></p>
+    <div class="sermon-controls">
+      <input class="sermon-search" type="text" id="sermonSearch" placeholder="Search sermons..." oninput="filterSermons()" />
+      <span style="font-size:13px;color:var(--muted)" id="scount"></span>
+    </div>
+    <div class="sermons-grid" id="sermonsGrid">
+      {% assign sermons_sorted = site.data.sermons | sort: 'date' | reverse %}
+      {% for sermon_hash in sermons_sorted %}
+        {% assign s = sermon_hash[1] %}
+        <div class="sermon-card" data-en="{{ s.titleEn | downcase }} {{ s.verseEn | downcase }} {{ s.notesEn | downcase }}" data-ta="{{ s.titleTa }} {{ s.verseTa }} {{ s.notesTa }}">
+          <div class="sthumb" {% if s.youtubeId and s.youtubeId != '' %}onclick="openYT('{{ s.youtubeId }}')"{% endif %}>
+            {% if s.youtubeId and s.youtubeId != '' %}
+              <img src="https://img.youtube.com/vi/{{ s.youtubeId }}/mqdefault.jpg" alt="{{ s.titleEn }}" loading="lazy" />
+              <div class="play-btn">▶</div>
+            {% else %}
+              <div style="font-size:48px;opacity:.15;color:white">✝</div>
+            {% endif %}
+          </div>
+          <div class="sbody">
+            <div class="sdate"><span class="en">{{ s.date | date: "%B %d, %Y" }}</span><span class="ta">{{ s.date | date: "%d-%m-%Y" }}</span></div>
+            <div class="stitle"><span class="en">{{ s.titleEn }}</span><span class="ta">{{ s.titleTa }}</span></div>
+            <div class="sverse">📖 <span class="en">{{ s.verseEn }}</span><span class="ta">{{ s.verseTa }}</span></div>
+            <div class="snotes"><span class="en">{{ s.notesEn }}</span><span class="ta">{{ s.notesTa }}</span></div>
+            <div class="sfooter">
+              <span class="spastor">🎤 {{ s.pastor }}</span>
+              {% if s.youtubeId and s.youtubeId != '' %}
+                <button class="watch-btn" onclick="openYT('{{ s.youtubeId }}')">▶ <span class="en">Watch</span><span class="ta">பார்</span></button>
+              {% else %}
+                <span class="no-yt"><span class="en">Coming soon</span><span class="ta">விரைவில்</span></span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- ══ EVENTS ══ -->
+<div id="page-events" class="page">
+  <div class="inner">
+    <h2><span class="en">Upcoming Events</span><span class="ta">வரவிருக்கும் நிகழ்வுகள்</span></h2>
+    <p class="sub"><span class="en">Join us for these special gatherings — all are welcome!</span><span class="ta">இந்த சிறப்பு கூட்டங்களில் கலந்துகொள்ளுங்கள்!</span></p>
+    <div class="live-banner">
+      <div class="live-badge"><div class="live-dot"></div> <span class="en">Live on YouTube</span><span class="ta">யூடியூபில் நேரலை</span></div>
+      <h3><span class="en">Watch Our Services Live</span><span class="ta">நமது ஆராதனையை நேரலையில் காணுங்கள்</span></h3>
+      <p><span class="en">Can't make it in person? Join us online every Sunday on YouTube.</span><span class="ta">நேரில் வர முடியவில்லையா? ஒவ்வொரு ஞாயிற்றுக்கிழமையும் யூடியூபில் இணையுங்கள்.</span></p>
+      <a class="yt-btn" href="{{ site.data.settings.youtube }}" target="_blank">▶ <span class="en">Watch on YouTube</span><span class="ta">யூடியூபில் காணுங்கள்</span></a>
+    </div>
+    <div class="events-grid">
+      {% assign events_sorted = site.data.events | sort: 'date' %}
+      {% for event_hash in events_sorted %}
+        {% assign ev = event_hash[1] %}
+        <div class="ecard">
+          <div class="edate-bar" {% if ev.category == 'Annual' %}style="background:#8B1A1A"{% endif %}>
+            <div class="eday">{{ ev.date | date: "%d" }}</div>
+            <div class="emonth"><span class="en">{{ ev.date | date: "%B %Y" }}</span><span class="ta">{{ ev.date | date: "%m-%Y" }}</span></div>
+          </div>
+          <div class="ebody">
+            <div class="etag" {% if ev.category == 'Annual' %}style="background:#FFF0F0;color:#8B1A1A"{% endif %}>{{ ev.category }}</div>
+            <div class="etitle"><span class="en">{{ ev.titleEn }}</span><span class="ta">{{ ev.titleTa }}</span></div>
+            <div class="edesc"><span class="en">{{ ev.descEn }}</span><span class="ta">{{ ev.descTa }}</span></div>
+            <div class="efooter">📍 <span class="en">{{ ev.locationEn }}</span><span class="ta">{{ ev.locationTa }}</span></div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<!-- ══ GALLERY ══ -->
+<div id="page-gallery" class="page">
+  <div class="inner">
+    <h2><span class="en">Photo Gallery</span><span class="ta">புகைப்பட தொகுப்பு</span></h2>
+    <p class="sub"><span class="en">Moments from our church life — worship, events, and community.</span><span class="ta">நமது சபை வாழ்வின் தருணங்கள் — ஆராதனை, நிகழ்வுகள், கூட்டுறவு.</span></p>
+    {% if site.data.gallery.size > 0 %}
+    <div class="gallery-grid">
+      {% assign gallery_sorted = site.data.gallery | sort: 'date' | reverse %}
+      {% for photo_hash in gallery_sorted %}
+        {% assign ph = photo_hash[1] %}
+        <div class="gcard">
+          <img src="{{ ph.image }}" alt="{{ ph.titleEn }}" loading="lazy" />
+          <div class="gcap"><span class="en">{{ ph.titleEn }}</span><span class="ta">{{ ph.titleTa }}</span></div>
+        </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div style="text-align:center;padding:3rem;color:var(--muted)">
+      <div style="font-size:48px;margin-bottom:1rem">📷</div>
+      <p><span class="en">Photos coming soon! Admin can upload photos from the admin panel.</span><span class="ta">புகைப்படங்கள் விரைவில்! நிர்வாகி நிர்வாக பலகையிலிருந்து படங்களை பதிவேற்றலாம்.</span></p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ══ GIVE ══ -->
+<div id="page-give" class="page">
+  <div class="inner">
+    <h2><span class="en">Give &amp; Support</span><span class="ta">கொடு &amp; ஆதரி</span></h2>
+    <p class="sub"><span class="en">Your generosity fuels the mission of Philadelphia Church.</span><span class="ta">உங்கள் தாராள மனப்பான்மை பிலடெல்பியா சபையின் பணியை நடத்துகிறது.</span></p>
+    <div class="give-box">
+      <h3><span class="en">{{ site.data.givepage.headingEn }}</span><span class="ta">{{ site.data.givepage.headingTa }}</span></h3>
+      <p><span class="en">{{ site.data.givepage.descEn }}</span><span class="ta">{{ site.data.givepage.descTa }}</span></p>
+      <div class="upi-box" onclick="copyUPI('{{ site.data.settings.upiId }}')">
+        <div><div class="upi-label">UPI ID</div><div class="upi-id">{{ site.data.settings.upiId }}</div></div>
+        <div style="font-size:20px">📋</div>
+      </div>
+      <div class="copied-msg" id="copiedMsg">✓ <span class="en">UPI ID Copied!</span><span class="ta">நகலெடுக்கப்பட்டது!</span></div>
+      <div class="give-methods"><span class="gtag">GPay</span><span class="gtag">PhonePe</span><span class="gtag">Paytm</span><span class="gtag">BHIM</span><span class="gtag">Any UPI App</span></div>
+    </div>
+    <div class="give-cards">
+      {% for card in site.data.givepage.cards %}
+      <div class="acard">
+        <h4>{{ card.icon }} <span class="en">{{ card.titleEn }}</span><span class="ta">{{ card.titleTa }}</span></h4>
+        <p><span class="en">{{ card.descEn }}</span><span class="ta">{{ card.descTa }}</span></p>
+      </div>
+      {% endfor %}
+    </div>
+    <p style="text-align:center;margin-top:1.5rem;font-size:13px;color:var(--muted)">
+      <span class="en">For bank transfer, contact us at {{ site.data.settings.phone }}</span>
+      <span class="ta">வங்கி பரிமாற்றத்திற்கு {{ site.data.settings.phone }} தொடர்பு கொள்ளுங்கள்</span>
+    </p>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div id="page-contact" class="page">
+  <div class="inner">
+    <h2><span class="en">Contact Us</span><span class="ta">தொடர்பு கொள்ளுங்கள்</span></h2>
+    <p class="sub"><span class="en">We'd love to hear from you — get in touch or plan your visit.</span><span class="ta">உங்களிடமிருந்து கேட்க விரும்புகிறோம்!</span></p>
+    <div class="contact-layout">
+      <div class="cinfo">
+        <div class="ci-item"><div class="ci-icon">📍</div><div class="ci-text"><h5><span class="en">Our Location</span><span class="ta">நமது இடம்</span></h5><p>{{ site.data.settings.address }}</p></div></div>
+        <div class="ci-item"><div class="ci-icon">🕘</div><div class="ci-text"><h5><span class="en">Service Times</span><span class="ta">ஆராதனை நேரம்</span></h5><p>{% for st in site.data.settings.serviceTimes %}<span class="en">{{ st.dayEn }}: {{ st.time }}</span><span class="ta">{{ st.dayTa }}: {{ st.time }}</span><br>{% endfor %}</p></div></div>
+        <div class="ci-item"><div class="ci-icon">📞</div><div class="ci-text"><h5><span class="en">Phone</span><span class="ta">தொலைபேசி</span></h5><p>{{ site.data.settings.phone }}</p></div></div>
+        <div class="ci-item"><div class="ci-icon">✉️</div><div class="ci-text"><h5>Email</h5><p>{{ site.data.settings.email }}</p></div></div>
+        <div class="ci-item"><div class="ci-icon">💬</div><div class="ci-text"><h5>WhatsApp</h5><p><a href="https://wa.me/{{ site.data.settings.whatsapp }}" style="color:var(--bm);text-decoration:none">+{{ site.data.settings.whatsapp }}</a></p></div></div>
+      </div>
+      <div>
+        <form class="cform" name="contact" method="POST" data-netlify="true" onsubmit="submitForm(event)">
+          <input type="hidden" name="form-name" value="contact" />
+          <div><label class="flabel"><span class="en">Your name</span><span class="ta">உங்கள் பெயர்</span></label><input type="text" name="name" placeholder="John David" required /></div>
+          <div><label class="flabel"><span class="en">Email</span><span class="ta">மின்னஞ்சல்</span></label><input type="email" name="email" placeholder="you@example.com" required /></div>
+          <div><label class="flabel"><span class="en">I'd like to...</span><span class="ta">நான் விரும்புவது...</span></label>
+            <select name="reason"><option>Plan a visit</option><option>Ask a question</option><option>Join a small group</option><option>Request prayer</option></select></div>
+          <div><label class="flabel"><span class="en">Message</span><span class="ta">செய்தி</span></label><textarea name="message" placeholder="Write your message here..." required></textarea></div>
+          <button type="submit" class="send-btn"><span class="en">Send Message</span><span class="ta">செய்தி அனுப்பு</span></button>
+          <div class="form-ok" id="formOk">✓ <span class="en">Thank you! We'll be in touch soon.</span><span class="ta">நன்றி! நாங்கள் விரைவில் தொடர்பு கொள்வோம்.</span></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="fcol">
+      <div class="footer-logo">✝ <span class="en">{{ site.data.settings.churchNameEn }}</span><span class="ta">{{ site.data.settings.churchNameTa }}</span></div>
+      <p><span class="en">A place to belong, believe and grow — an open door for all in Singanallur, Coimbatore.</span><span class="ta">சேர, நம்ப மற்றும் வளர ஒரு இடம் — சிங்காநல்லூரில் அனைவருக்கும் திறந்த வாசல்.</span></p>
+      <div class="fsocial">
+        <a href="{{ site.data.settings.youtube }}" target="_blank" title="YouTube">▶</a>
+        <a href="https://wa.me/{{ site.data.settings.whatsapp }}" target="_blank" title="WhatsApp">💬</a>
+        <a href="mailto:{{ site.data.settings.email }}" title="Email">✉</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h5><span class="en">Quick Links</span><span class="ta">விரைவு இணைப்புகள்</span></h5>
+      <a onclick="nav('home')"><span class="en">Home</span><span class="ta">முகப்பு</span></a>
+      <a onclick="nav('about')"><span class="en">About</span><span class="ta">எங்களை பற்றி</span></a>
+      <a onclick="nav('services')"><span class="en">Services</span><span class="ta">ஆராதனை</span></a>
+      <a onclick="nav('sermons')"><span class="en">Sermons</span><span class="ta">போதனைகள்</span></a>
+      <a onclick="nav('events')"><span class="en">Events</span><span class="ta">நிகழ்வுகள்</span></a>
+      <a onclick="nav('gallery')"><span class="en">Gallery</span><span class="ta">படங்கள்</span></a>
+      <a onclick="nav('give')"><span class="en">Give</span><span class="ta">கொடு</span></a>
+      <a onclick="nav('contact')"><span class="en">Contact</span><span class="ta">தொடர்பு</span></a>
+    </div>
+    <div class="fcol">
+      <h5><span class="en">Contact</span><span class="ta">தொடர்பு</span></h5>
+      <p>{{ site.data.settings.address }}</p>
+      <p style="margin-top:8px">📞 {{ site.data.settings.phone }}</p>
+      <p>✉ {{ site.data.settings.email }}</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 {{ site.data.settings.churchNameEn }}, Singanallur. All Rights Reserved.</span>
+    <span>"I have placed before you an open door" — Rev 3:8</span>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/{{ site.data.settings.whatsapp }}" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<div class="yt-modal" id="ytModal" onclick="if(event.target===this)closeYT()">
+  <div class="yt-inner">
+    <button class="yt-close" onclick="closeYT()">✕</button>
+    <iframe id="ytFrame" src="" allowfullscreen allow="autoplay"></iframe>
+  </div>
+</div>
+
+<script>
+function nav(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  var el=document.getElementById('page-'+id);
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.remove('active')});
+  var n=document.getElementById('n-'+id);
+  if(n)n.classList.add('active');
+  window.scrollTo(0,0);
+}
+function toggleMob(){document.getElementById('mobMenu').classList.toggle('open')}
+function setLang(l){
+  if(l==='ta'){document.body.classList.add('lang-ta');document.getElementById('btn-ta').classList.add('active');document.getElementById('btn-en').classList.remove('active')}
+  else{document.body.classList.remove('lang-ta');document.getElementById('btn-en').classList.add('active');document.getElementById('btn-ta').classList.remove('active')}
+}
+function filterSermons(){
+  var q=document.getElementById('sermonSearch').value.toLowerCase();
+  var cards=document.querySelectorAll('.sermon-card');
+  var shown=0;
+  cards.forEach(function(c){
+    var match=c.dataset.en.includes(q)||c.dataset.ta.includes(q);
+    c.style.display=match?'':'none';
+    if(match)shown++;
+  });
+  document.getElementById('scount').textContent=shown+' sermon'+(shown!==1?'s':'');
+}
+function openYT(id){document.getElementById('ytFrame').src='https://www.youtube.com/embed/'+id+'?autoplay=1';document.getElementById('ytModal').classList.add('open');document.body.style.overflow='hidden'}
+function closeYT(){document.getElementById('ytFrame').src='';document.getElementById('ytModal').classList.remove('open');document.body.style.overflow=''}
+function copyUPI(upi){
+  if(navigator.clipboard){navigator.clipboard.writeText(upi).then(function(){var m=document.getElementById('copiedMsg');m.style.display='block';setTimeout(function(){m.style.display='none'},3000)})}
+}
+function submitForm(e){
+  e.preventDefault();
+  var ok=document.getElementById('formOk');
+  ok.style.display='block';
+  setTimeout(function(){ok.style.display='none'},4000);
+}
+// Init sermon count
+var sc=document.querySelectorAll('.sermon-card').length;
+var scount=document.getElementById('scount');
+if(scount)scount.textContent=sc+' sermon'+(sc!==1?'s':'');
+// Nav init
+nav('home');
+// Netlify Identity
+if(window.netlifyIdentity){window.netlifyIdentity.on('init',function(u){if(!u){window.netlifyIdentity.on('login',function(){document.location.href='/admin/'})}})}
+</script>
+</body>
+</html>

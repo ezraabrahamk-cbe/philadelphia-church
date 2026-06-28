@@ -1,0 +1,165 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images/uploads"
+public_folder: "/assets/images/uploads"
+
+collections:
+
+  # ── SERMONS ──
+  - name: "sermons"
+    label: "📖 Sermons / போதனைகள்"
+    folder: "_data/sermons"
+    create: true
+    format: "yml"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title (English)", name: "titleEn", widget: "string" }
+      - { label: "Title (Tamil)", name: "titleTa", widget: "string" }
+      - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Scripture (English)", name: "verseEn", widget: "string", hint: "e.g. John 3:16" }
+      - { label: "Scripture (Tamil)", name: "verseTa", widget: "string", hint: "e.g. யோவான் 3:16" }
+      - { label: "Notes (English)", name: "notesEn", widget: "text" }
+      - { label: "Notes (Tamil)", name: "notesTa", widget: "text" }
+      - { label: "YouTube Video ID", name: "youtubeId", widget: "string", required: false, hint: "From youtube.com/watch?v=PASTE_ID_HERE" }
+      - { label: "Pastor Name", name: "pastor", widget: "string", default: "Pr. K. Ezra Abraham" }
+
+  # ── EVENTS ──
+  - name: "events"
+    label: "📅 Events / நிகழ்வுகள்"
+    folder: "_data/events"
+    create: true
+    format: "yml"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title (English)", name: "titleEn", widget: "string" }
+      - { label: "Title (Tamil)", name: "titleTa", widget: "string" }
+      - { label: "Event Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Category", name: "category", widget: "select", options: ["Youth", "Family", "Outreach", "Annual", "Prayer", "Worship", "Community"] }
+      - { label: "Description (English)", name: "descEn", widget: "text" }
+      - { label: "Description (Tamil)", name: "descTa", widget: "text" }
+      - { label: "Location (English)", name: "locationEn", widget: "string", default: "Philadelphia Church, Singanallur" }
+      - { label: "Location (Tamil)", name: "locationTa", widget: "string", default: "பிலடெல்பியா சபை, சிங்காநல்லூர்" }
+
+  # ── GALLERY ──
+  - name: "gallery"
+    label: "🖼️ Photo Gallery / புகைப்படங்கள்"
+    folder: "_data/gallery"
+    create: true
+    format: "yml"
+    slug: "{{slug}}"
+    fields:
+      - { label: "Photo Title (English)", name: "titleEn", widget: "string" }
+      - { label: "Photo Title (Tamil)", name: "titleTa", widget: "string" }
+      - { label: "Photo", name: "image", widget: "image" }
+      - { label: "Date", name: "date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Category", name: "category", widget: "select", options: ["Worship", "Events", "Youth", "Community", "Outreach"] }
+
+  # ── PAGES ──
+  - name: "pages"
+    label: "📄 Page Content / பக்க உள்ளடக்கம்"
+    files:
+
+      # HOME PAGE
+      - label: "🏠 Home Page"
+        name: "homepage"
+        file: "_data/homepage.json"
+        fields:
+          - { label: "Hero Title (English)", name: "heroTitleEn", widget: "string" }
+          - { label: "Hero Title (Tamil)", name: "heroTitleTa", widget: "string" }
+          - { label: "Hero Subtitle (English)", name: "heroSubtitleEn", widget: "text" }
+          - { label: "Hero Subtitle (Tamil)", name: "heroSubtitleTa", widget: "text" }
+          - { label: "Hero Background Image", name: "heroBgImage", widget: "image", hint: "Recommended: 1920x800px JPG, under 500KB" }
+          - { label: "Bible Verse (English)", name: "verseEn", widget: "string" }
+          - { label: "Bible Verse (Tamil)", name: "verseTa", widget: "string" }
+          - { label: "Verse Reference (English)", name: "verseRefEn", widget: "string", hint: "e.g. Revelation 3:8" }
+          - { label: "Verse Reference (Tamil)", name: "verseRefTa", widget: "string", hint: "e.g. வெளிப்படுத்தல் 3:8" }
+          - label: "Feature Cards"
+            name: "cards"
+            widget: "list"
+            min: 4
+            max: 4
+            fields:
+              - { label: "Icon (emoji)", name: "icon", widget: "string" }
+              - { label: "Title (English)", name: "titleEn", widget: "string" }
+              - { label: "Title (Tamil)", name: "titleTa", widget: "string" }
+              - { label: "Description (English)", name: "descEn", widget: "text" }
+              - { label: "Description (Tamil)", name: "descTa", widget: "text" }
+
+      # ABOUT PAGE
+      - label: "👥 About Page"
+        name: "aboutpage"
+        file: "_data/aboutpage.json"
+        fields:
+          - { label: "Vision (English)", name: "visionEn", widget: "text" }
+          - { label: "Vision (Tamil)", name: "visionTa", widget: "text" }
+          - { label: "Mission (English)", name: "missionEn", widget: "text" }
+          - { label: "Mission (Tamil)", name: "missionTa", widget: "text" }
+          - { label: "What We Believe (English)", name: "beliefEn", widget: "text" }
+          - { label: "What We Believe (Tamil)", name: "beliefTa", widget: "text" }
+          - { label: "Our History (English)", name: "historyEn", widget: "text" }
+          - { label: "Our History (Tamil)", name: "historyTa", widget: "text" }
+
+      # GIVE PAGE
+      - label: "💰 Give Page"
+        name: "givepage"
+        file: "_data/givepage.json"
+        fields:
+          - { label: "Section Title (English)", name: "titleEn", widget: "string" }
+          - { label: "Section Title (Tamil)", name: "titleTa", widget: "string" }
+          - { label: "Description (English)", name: "descEn", widget: "text" }
+          - { label: "Description (Tamil)", name: "descTa", widget: "text" }
+          - { label: "Card 1 Title (English)", name: "card1TitleEn", widget: "string" }
+          - { label: "Card 1 Title (Tamil)", name: "card1TitleTa", widget: "string" }
+          - { label: "Card 1 Description (English)", name: "card1DescEn", widget: "text" }
+          - { label: "Card 1 Description (Tamil)", name: "card1DescTa", widget: "text" }
+          - { label: "Card 2 Title (English)", name: "card2TitleEn", widget: "string" }
+          - { label: "Card 2 Title (Tamil)", name: "card2TitleTa", widget: "string" }
+          - { label: "Card 2 Description (English)", name: "card2DescEn", widget: "text" }
+          - { label: "Card 2 Description (Tamil)", name: "card2DescTa", widget: "text" }
+          - { label: "Card 3 Title (English)", name: "card3TitleEn", widget: "string" }
+          - { label: "Card 3 Title (Tamil)", name: "card3TitleTa", widget: "string" }
+          - { label: "Card 3 Description (English)", name: "card3DescEn", widget: "text" }
+          - { label: "Card 3 Description (Tamil)", name: "card3DescTa", widget: "text" }
+
+  # ── CHURCH SETTINGS ──
+  - name: "settings"
+    label: "⚙️ Church Settings / சபை அமைப்புகள்"
+    files:
+      - label: "General Settings"
+        name: "general"
+        file: "_data/settings.json"
+        fields:
+          - { label: "Church Name (English)", name: "churchNameEn", widget: "string" }
+          - { label: "Church Name (Tamil)", name: "churchNameTa", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Address", name: "address", widget: "string" }
+          - { label: "WhatsApp Number", name: "whatsapp", widget: "string", hint: "With country code: 918056700100" }
+          - { label: "YouTube Channel URL", name: "youtube", widget: "string" }
+          - { label: "UPI ID", name: "upiId", widget: "string" }
+          - label: "Service Times"
+            name: "serviceTimes"
+            widget: "list"
+            fields:
+              - { label: "Day (English)", name: "dayEn", widget: "string" }
+              - { label: "Day (Tamil)", name: "dayTa", widget: "string" }
+              - { label: "Time", name: "time", widget: "string" }
+              - { label: "Service Name (English)", name: "nameEn", widget: "string" }
+              - { label: "Service Name (Tamil)", name: "nameTa", widget: "string" }
+
+  # ── PASTOR ──
+  - name: "pastor"
+    label: "👤 Pastor Info / போதகர் தகவல்"
+    files:
+      - label: "Pastor Details"
+        name: "pastor"
+        file: "_data/pastor.json"
+        fields:
+          - { label: "Pastor Name", name: "name", widget: "string" }
+          - { label: "Title (English)", name: "titleEn", widget: "string" }
+          - { label: "Title (Tamil)", name: "titleTa", widget: "string" }
+          - { label: "Bio (English)", name: "bioEn", widget: "text" }
+          - { label: "Bio (Tamil)", name: "bioTa", widget: "text" }
+          - { label: "Pastor Photo", name: "photo", widget: "image", hint: "Square photo recommended, min 200x200px" }

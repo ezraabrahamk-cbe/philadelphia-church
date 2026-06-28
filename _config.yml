@@ -1,0 +1,15 @@
+title: Philadelphia Church
+description: A Place to Belong, Believe & Grow
+url: "https://philadelphiachurch.online"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
